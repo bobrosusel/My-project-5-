@@ -4,6 +4,7 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] private float _damage;
     [SerializeField] private float _shootDelay;
+    [SerializeField] private float _bulletSpeed;
     [SerializeField] private GameObject _bullet;
 
     private float _tempDelay;
@@ -28,20 +29,10 @@ public class Shoot : MonoBehaviour
 
     private void Shot()
     {
-        Instantiate(_bullet, _transform.position, Quaternion.Euler(0, 0, GetAngale()));
+        Debug.Log(_transform.rotation);
+        GameObject b = Instantiate(_bullet, _transform.position, transform.rotation);
+        Debug.Log(b.transform.rotation);
+        b.GetComponent<Bullet>().SetProperties(_bulletSpeed, _damage);
         _tempDelay = _shootDelay;
-    }
-
-    private Vector3 GetCursorPosition()
-    {
-        Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cursorWorldPos.z = 0;
-        return cursorWorldPos;
-    }
-
-    private float GetAngale()
-    {
-        Vector3 direction = GetCursorPosition() - _transform.position;
-        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 }
