@@ -29,9 +29,8 @@ public class Shoot : MonoBehaviour
 
     private void Shot()
     {
-        Debug.Log(_transform.rotation);
-        GameObject b = Instantiate(_bullet, _transform.position, transform.rotation);
-        Debug.Log(b.transform.rotation);
+        GameObject b = Instantiate(_bullet, _transform.position + transform.right * 0.5f, transform.rotation);
+        b.transform.Rotate(0, 0, _transform.rotation.z + 90);
         b.GetComponent<Bullet>().SetProperties(_bulletSpeed, _damage);
         _tempDelay = _shootDelay;
     }

@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //_rigidbody.MovePosition(_rigidbody.position + Vector2.up);
+        _rigidbody.linearVelocity = -transform.up * _bulletSpeed;
     }
 
     public void SetProperties(float bulletSpeed, float damage)
