@@ -9,10 +9,12 @@ public class Shoot : MonoBehaviour
 
     private float _tempDelay;
     private Transform _transform;
+    private PlayerAnimator _animator;
 
     private void Start()
     {
         _transform = GetComponent<Transform>();
+        _animator = new PlayerAnimator(GetComponent<Animator>());
     }
 
     private void Update()
@@ -30,10 +32,15 @@ public class Shoot : MonoBehaviour
 
     private void Shot()
     {
+        _animator.SetShot();
+        _tempDelay = _shootDelay;
         _bulletCount--;
+    }
+
+    public void SpawnBullet()
+    {
         GameObject b = Instantiate(_bullet, _transform.position + transform.right * 0.5f, transform.rotation);
         b.transform.Rotate(0, 0, _transform.rotation.z + 90);
         b.GetComponent<Bullet>().SetProperties(_damage);
-        _tempDelay = _shootDelay;
     }
 }

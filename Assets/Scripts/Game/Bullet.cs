@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class Bullet : MonoBehaviour
             _rigidbody.linearVelocity = -reflectedVelocity;
 
             float angle = Mathf.Atan2(reflectedVelocity.y, reflectedVelocity.x) * Mathf.Rad2Deg - 90f; 
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.Rotate(new Vector3(0, 0, angle));
         }
     }
 
