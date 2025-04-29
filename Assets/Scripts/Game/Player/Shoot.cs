@@ -4,7 +4,7 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] private float _damage;
     [SerializeField] private float _shootDelay;
-    [SerializeField] private float _bulletSpeed;
+    [SerializeField] private float _bulletCount;
     [SerializeField] private GameObject _bullet;
 
     private float _tempDelay;
@@ -17,7 +17,8 @@ public class Shoot : MonoBehaviour
 
     private void Update()
     {
-        Timer();
+        if (_bulletCount > 0)
+            Timer();
     }
 
     private void Timer()
@@ -29,9 +30,10 @@ public class Shoot : MonoBehaviour
 
     private void Shot()
     {
+        _bulletCount--;
         GameObject b = Instantiate(_bullet, _transform.position + transform.right * 0.5f, transform.rotation);
         b.transform.Rotate(0, 0, _transform.rotation.z + 90);
-        b.GetComponent<Bullet>().SetProperties(_bulletSpeed, _damage);
+        b.GetComponent<Bullet>().SetProperties(_damage);
         _tempDelay = _shootDelay;
     }
 }
