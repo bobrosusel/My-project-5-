@@ -31,14 +31,11 @@ public class Bullet : MonoBehaviour
         else
         {
             Vector2 normal = collision.contacts[0].normal;
+            Vector2 reflectedVelocity = Vector2.Reflect(_rigidbody.linearVelocity.normalized, normal) * _bulletSpeed;
+            _rigidbody.linearVelocity = -reflectedVelocity;
 
-            Vector2 reflectedDirection = Vector2.Reflect(_rigidbody.linearVelocity.normalized, normal);
-
-            _rigidbody.linearVelocity = reflectedDirection * _bulletSpeed;
-
-            float angle = Mathf.Atan2(reflectedDirection.y, reflectedDirection.x) * Mathf.Rad2Deg - 90f;
+            float angle = Mathf.Atan2(reflectedVelocity.y, reflectedVelocity.x) * Mathf.Rad2Deg - 90f; 
             transform.rotation = Quaternion.Euler(0, 0, angle);
-            
         }
     }
 
