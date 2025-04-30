@@ -19,7 +19,7 @@ public class Shoot : MonoBehaviour
 
     private void Update()
     {
-        if (_bulletCount > 0)
+        if (_bulletCount > 0 & Time.timeScale != 0)
             Timer();
     }
 

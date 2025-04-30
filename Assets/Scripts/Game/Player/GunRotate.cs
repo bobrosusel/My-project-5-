@@ -10,8 +10,11 @@ public class GunRotate : MonoBehaviour
     {
         _deadZone = _rotateZone / 2;
     }
-    void Update()
+    private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         difference.Normalize();
 
