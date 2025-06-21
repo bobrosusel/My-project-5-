@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
@@ -14,30 +14,42 @@ public class Bullet : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.linearVelocity = -transform.up * _bulletSpeed;
-    }
-    private void FixedUpdate()
-    {
-        _lifeTime -= Time.deltaTime;
-        if (_lifeTime <= 0)
-            Destroy(gameObject);
-    }
 
+        StartCoroutine(TimeLifeTimer());
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<IHealth>(out IHealth health))
+        if (collision.gameObject.TryGetComponent(out IHealth health))
         {
-            health.TakeDamage(_damage);
-            Destroy(gameObject);
+            HitLogic(health);
         }
         else
         {
-            Vector2 normal = collision.contacts[0].normal;
-            Vector2 reflectedVelocity = Vector2.Reflect(_rigidbody.linearVelocity.normalized, normal) * _bulletSpeed;
-            _rigidbody.linearVelocity = -reflectedVelocity;
-
-            float angle = Mathf.Atan2(reflectedVelocity.y, reflectedVelocity.x) * Mathf.Rad2Deg - 90f; 
-            transform.Rotate(new Vector3(0, 0, angle));
+            ReflectBullet(collision);
         }
+    }
+
+    private void HitLogic(IHealth health)
+    {
+        health.TakeDamage(_damage);
+        Destroy(gameObject);
+    }
+    private void ReflectBullet(Collision2D collision)
+    {
+        Vector2 normal = collision.contacts[0].normal.normalized;
+
+        Vector2 incomingDir = _rigidbody.linearVelocity.normalized;
+
+        Vector2 reflectedDir = Vector2.Reflect(incomingDir, normal);
+
+        float angle = Mathf.Atan2(reflectedDir.y, reflectedDir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    private IEnumerator TimeLifeTimer()
+    {
+        yield return new WaitForSeconds(_lifeTime);
+        Destroy(gameObject);
     }
 
     public void SetProperties(float damage)

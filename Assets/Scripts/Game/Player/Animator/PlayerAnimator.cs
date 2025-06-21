@@ -17,4 +17,9 @@ public class PlayerAnimator
     {
         _animator.SetTrigger("IsShooting");
     }
+
+    public void SetDeath()
+    {
+        _animator.SetTrigger("Death");
+    }
 }
