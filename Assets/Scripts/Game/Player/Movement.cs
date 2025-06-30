@@ -7,6 +7,8 @@ public class Movement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private PlayerAnimator _animator;
 
+    private Vector2 _currentMovement;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -15,15 +17,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SetMovement();
+        SetMovement(_currentMovement);
     }
-    
-    private void SetMovement()
-    {
-        float movementHorizontal = Input.GetAxis("Horizontal");
-        float movementVertical = Input.GetAxis("Vertical");
 
-        Vector2 movementDirection = new Vector2(movementHorizontal, movementVertical);
+    private void SetMovement(Vector2 movementDirection)
+    {
 
         if (movementDirection == Vector2.zero)
         {
@@ -33,5 +31,20 @@ public class Movement : MonoBehaviour
 
         _animator.SetMovement(true);
         _rigidbody.MovePosition(_rigidbody.position + movementDirection * _speed * Time.fixedDeltaTime);
+    }
+
+    private void OnMoveInput(Vector2 movementDirection)
+    {
+        _currentMovement = movementDirection;
+    }
+
+    private void OnEnable()
+    {
+        InputCheker.Input.Move += OnMoveInput;
+    }
+
+    private void OnDisable()
+    {
+        InputCheker.Input.Move -= OnMoveInput;
     }
 }

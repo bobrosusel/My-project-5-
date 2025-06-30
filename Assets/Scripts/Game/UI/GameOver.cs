@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private float _activeMenuDelay;
-
     private void Awake()
     {
         StartCoroutine(Timer());
@@ -13,8 +11,7 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator Timer()
     {
-        Debug.Log("PENIS");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
         SceneManager.LoadScene(0);
     }
 }

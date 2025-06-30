@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-public class Barrle : MonoBehaviour, IHealth
+public class BarrleHealth : MonoBehaviour, IHealth
 {
     [SerializeField] private float _damage;
+    [SerializeField] private float _explosionRadius;
 
     private float _health = 1;
     public void TakeDamage(float damage)
@@ -18,11 +19,19 @@ public class Barrle : MonoBehaviour, IHealth
 
     private void Boom()
     {
-        Collider2D[] health = Physics2D.OverlapCircleAll(transform.position, GetComponent<CircleCollider2D>().radius);
+        Collider2D[] health = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
         foreach (Collider2D h in health)
         {
-            if (h.TryGetComponent<IHealth>(out IHealth component))
+            if (h.TryGetComponent(out IHealth component))
                 component.TakeDamage(_damage);
         }
     }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+    }
+
 }

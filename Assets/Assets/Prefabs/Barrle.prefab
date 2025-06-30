@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3465276178440750453}
   - component: {fileID: 7448007932445980206}
   - component: {fileID: 562913554729974971}
-  - component: {fileID: 8364259950354518664}
+  - component: {fileID: 8946615379071256104}
   m_Layer: 0
   m_Name: Barrle
   m_TagString: Untagged
@@ -102,8 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
---- !u!58 &8364259950354518664
-CircleCollider2D:
+  _explosionRadius: 1.5
+--- !u!61 &8946615379071256104
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,4 +138,14 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.96
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.42, y: 1.92}
+    newSize: {x: 1.42, y: 1.92}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.42, y: 1.92}
+  m_EdgeRadius: 0
