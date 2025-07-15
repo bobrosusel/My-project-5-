@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [SerializeField]
     private void Death()
     {
-        PlayerDeath.Invoke();
+        PlayerDeath?.Invoke();
         Destroy(gameObject);
     }
 }

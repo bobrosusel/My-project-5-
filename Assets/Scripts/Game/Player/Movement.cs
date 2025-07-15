@@ -22,14 +22,8 @@ public class Movement : MonoBehaviour
 
     private void SetMovement(Vector2 movementDirection)
     {
-
-        if (movementDirection == Vector2.zero)
-        {
-            _animator.SetMovement(false);
-            return;
-        }
-
-        _animator.SetMovement(true);
+        _animator.SetMovement(movementDirection);
+       
         _rigidbody.MovePosition(_rigidbody.position + movementDirection * _speed * Time.fixedDeltaTime);
     }
 

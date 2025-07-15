@@ -1,4 +1,8 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class StateMananger : MonoBehaviour
 {
@@ -26,6 +30,7 @@ public class StateMananger : MonoBehaviour
         _shoot.BulletOver += GameOver;
         _playerHealth.PlayerDeath += GameOver;
         _enemyChecker.EnemyDone += Win;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -61,4 +66,10 @@ public class StateMananger : MonoBehaviour
             AudioListener.pause = _isPaused;
         }
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        InputCheker.Input.RestartTouchScreen();
+    }
+
 }

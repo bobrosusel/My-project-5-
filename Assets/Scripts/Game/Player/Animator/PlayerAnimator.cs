@@ -8,9 +8,12 @@ public class PlayerAnimator
         _animator = animator;
     }
 
-    public void SetMovement(bool isWalk)
+    public void SetMovement(Vector2 move)
     {
-        _animator.SetBool("Walk", isWalk);
+        if (move == Vector2.zero)
+            _animator.SetBool("Walk", false);
+        else
+            _animator.SetBool("Walk", true);
     }
 
     public void SetShot()
