@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem.LowLevel;
 
 public class InputCheker
@@ -32,6 +33,7 @@ public class InputCheker
     private InputCheker() 
     {
         _input = new InputSystemAction();
+        EnhancedTouchSupport.Enable();
         Enable();
     }
 
@@ -49,6 +51,7 @@ public class InputCheker
 
     public void TriggerMove(Vector2 direction) => Move?.Invoke(direction);
     public void TriggerShot() => Shot?.Invoke();
+    public void TriggerEscape() => Escape?.Invoke();
 
     public void RestartTouchScreen()
     {

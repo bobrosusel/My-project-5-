@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem.EnhancedTouch;
+
 
 public class StateMananger : MonoBehaviour
 {
@@ -60,7 +58,6 @@ public class StateMananger : MonoBehaviour
         if (!_onState)
         {
             _isPaused = !_isPaused;
-
             _pause.SetActive(_isPaused);
             Time.timeScale = _isPaused ? 0f : 1f;
             AudioListener.pause = _isPaused;
